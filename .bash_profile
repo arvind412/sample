@@ -1,0 +1,1 @@
+alias npp='nodepad++.exe --multiInst --nosession'
