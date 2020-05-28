@@ -1,0 +1,67 @@
+---
+
+# tasks file for frontend
+
+  - name: create a directory
+
+    file:
+
+      path: /opt/app/release
+
+      state: directory
+
+      mode: 0755
+
+  - name: install unzip
+
+    yum:
+
+      name: unzip
+
+      state: installed
+
+  - name: extract release file
+
+    unarchive:
+
+      src: "https://github.com/devopsdemoapps/devops-demo-app/archive/1.1.tar.gz"
+
+      dest: "/opt/app/release"
+
+      owner: apache
+
+      group: apache
+
+      creates: /opt/release/devops-demo-app-{‌{ app.version }}
+
+      remote_src: yes
+
+      list_files: yes
+
+  - name: creating symlink
+
+    file:
+
+      src: /opt/app/release
+
+      dest: /var/www/html/app
+
+      owner: apache
+
+      group: apache
+
+      state: link
+
+  - name: add application config
+
+    template:
+
+      src: config.ini.j2
+
+      dest: /var/www/html/app/config.ini
+
+      owner: apache
+
+      group: apache
+
+      mode: 0644    

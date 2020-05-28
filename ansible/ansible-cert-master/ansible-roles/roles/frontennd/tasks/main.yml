@@ -1,0 +1,10 @@
+---
+# tasks file for frontennd
+  - name: install git
+    yum:
+      name: git-all
+      state: installed
+  - name: create a directory for release
+    git:
+      repo: 'https://github.com/edureka-devops/projCert.git'
+      dest: /var/www/html

@@ -1,0 +1,33 @@
+---
+# tasks file for frontennd
+  - name: create a directory for release
+    file:
+      path: /opt/app
+      state: directory
+      mode: 0755
+  - name: install unzip package
+    yum:
+      name: unzip
+      state: present 
+  - name: extract release file
+    unarchive:
+      src: https://github.com/devopsdemoapps/devops-demo-app/releases/tag/1.1
+      dest: /opt/app/
+      owner: apache
+      group: apache
+      creates: /opt/release/devops-demo-app-{{ app.version }}
+      remote_src: yes
+  - name: create symlink
+    file:
+      src: /opt/app/devops-demo-app-{{ app.version }}
+      dest: /var/www/html/app
+      owner: apache
+      group: apache
+      state: link
+  - name: add application config
+    template:
+      src: config.ini.j2
+      dest: /var/www/html/app/config.ini
+      owner: apache
+      group: apache
+      mode: 0644

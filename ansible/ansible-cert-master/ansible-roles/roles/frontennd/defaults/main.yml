@@ -1,0 +1,15 @@
+---
+# defaults file for frontennd
+  app:
+    version: 1.5
+    env: LOCALDEV
+  fav:
+    color: white
+    fruit: orange
+    car: BMW
+    laptop: Dell
+  dbconn:
+    host: localhost
+    user: root
+    pass: changeme
+    db: devopsdemo    
